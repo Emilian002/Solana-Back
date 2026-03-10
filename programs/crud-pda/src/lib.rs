@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("11111111111111111111111111111111");
+declare_id!("TU_PROGRAM_ID_AQUI");
 
 #[program]
 pub mod crud_pda {
@@ -26,12 +26,13 @@ pub mod crud_pda {
 
 #[derive(Accounts)]
 pub struct CreateNote<'info> {
+
     #[account(
         init,
         payer = user,
         seeds = [b"note", user.key().as_ref()],
         bump,
-        space = 8 + 32 + 200
+        space = 8 + 32 + 4 + 200
     )]
     pub note: Account<'info, Note>,
 
@@ -43,10 +44,12 @@ pub struct CreateNote<'info> {
 
 #[derive(Accounts)]
 pub struct UpdateNote<'info> {
+
     #[account(
         mut,
         seeds = [b"note", user.key().as_ref()],
-        bump
+        bump,
+        constraint = note.author == user.key()
     )]
     pub note: Account<'info, Note>,
 
@@ -55,11 +58,13 @@ pub struct UpdateNote<'info> {
 
 #[derive(Accounts)]
 pub struct DeleteNote<'info> {
+
     #[account(
         mut,
         close = user,
         seeds = [b"note", user.key().as_ref()],
-        bump
+        bump,
+        constraint = note.author == user.key()
     )]
     pub note: Account<'info, Note>,
 
