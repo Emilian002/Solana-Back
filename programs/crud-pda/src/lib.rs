@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("TU_PROGRAM_ID_AQUI");
+declare_id!("F2rsSZt1fbhzSZtzAdVuqGWwgrUEmxVejtjAM8pbc6YH");
 
 #[program]
 pub mod crud_pda {
