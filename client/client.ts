@@ -1,24 +1,22 @@
-import * as web3 from "@solana/web3.js";
-import * as anchor from "@coral-xyz/anchor";
 import * as anchor from "@coral-xyz/anchor";
 import type { CrudPda } from "../target/types/crud_pda";
 
-// Configure the client to use the local cluster
-anchor.setProvider(anchor.AnchorProvider.env());
-
-const program = anchor.workspace.CrudPda as anchor.Program<CrudPda>;
-
-
+// provider
 const provider = anchor.AnchorProvider.env();
 anchor.setProvider(provider);
 
-const program = anchor.workspace.CrudPda;
+// programa
+const program = anchor.workspace.CrudPda as anchor.Program<CrudPda>;
 
 async function main() {
+
   const user = provider.wallet.publicKey;
 
   const [notePda] = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from("note"), user.toBuffer()],
+    [
+      Buffer.from("note"),
+      user.toBuffer()
+    ],
     program.programId
   );
 
